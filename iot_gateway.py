@@ -1,6 +1,7 @@
 import json
 import requests
 import paho.mqtt.client as mqtt
+from web3 import Web3
 
 # Global variable to store received temperature data
 received_temperature_data = None
@@ -24,6 +25,23 @@ mqtt_client.connect("127.0.0.1", 1883, 60)
 if __name__ == "__main__":
     # Subscribe to MQTT topic
     mqtt_client.loop_start()
+
+    # Connect to Ganache blockchain
+    provider = Web3.HTTPProvider("http://127.0.0.1:7545")  # Ganache endpoint
+    web3 = Web3(provider)
+
+    if web3.is_connected():
+        print("Connected to Ganache blockchain!")
+    else:
+        print("Connection failed. Check the endpoint URL.")
+
+    # get contract ABI and address of the deployed smart contract
+    with open("StoreHashContract.abi", "r") as f:
+        contract_abi = f.read()
+    contract_address = "0xFCf83964198D6d267054200cB7B6D6381052bce5"  # deployed contract address
+
+    # Create contract instance
+    contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
     try:
         while True:
@@ -59,13 +77,29 @@ if __name__ == "__main__":
                 # Append the data point with hash to a list of prepared data
                 prepared_data.append(data_point_with_hash)
 
-            # Send prepared data to Remix blockchain
+            # Send prepared data to ganache blockchain
             for entry in prepared_data:
                 print(f"- Data point: {entry['data']}")
                 print(f"- IPFS Hash: {entry['hash']}")
+                # Send IPFS hash to the blockchain
+                ipfs_hash = entry['hash']  # Access the IPFS hash from the prepared data
+                block_hash = ipfs_hash['block_hash']  # Extract the block_hash (bytes32)
+                block_hash_padded = block_hash.rjust(64, '0')  # Pad with zeros to ensure 32 bytes
+                block_hash_bytes32 = web3.to_bytes(hexstr=block_hash_padded)
+
+                # Specify the sender account
+                transaction = contract.functions.storeIPFSHash(block_hash_bytes32)
+                transaction = transaction.build_transaction({
+                'from': '0xE74f06153499317081E66F73d10ac841819f6f31'  # ganache account address
+                })
+
+                # Send the transaction
+                transaction_hash = web3.eth.send_transaction(transaction)
+                print(f"Transaction hash: {transaction_hash.hex()}")
 
             # Reset received_temperature_data for the next iteration
             received_temperature_data = None
+
 
     except KeyboardInterrupt:
         print("Program terminated by user")
