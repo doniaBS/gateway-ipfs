@@ -84,7 +84,7 @@ if __name__ == "__main__":
                 # Send IPFS hash to the blockchain
                 ipfs_hash = entry['hash']  # Access the IPFS hash from the prepared data
                 block_hash = ipfs_hash['block_hash']  # Extract the block_hash (bytes32)
-                block_hash_padded = block_hash.rjust(64, '0')  # Pad with zeros to ensure 32 bytes
+                block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
                 block_hash_bytes32 = web3.to_bytes(hexstr=block_hash_padded)
 
                 # Specify the sender account
