@@ -21,7 +21,7 @@ Nous nous concentrons sur la traçabilité, de la ruche au consommateur, pour as
 
 1. **Installer le broker HiveMQ :**
    -Tout d'abord, installez HiveMQ. Pour ce faire, suivez les étapes suivantes :
-      -Téléchargez le dosier .zip d'installation depuis le site officiel de HiveMQ : https://www.hivemq.com/download/
-      -Extrayez le dossier téléchargé à l'emplacement de votre choix sur votre système.
-      -Accédez au dossier bin dans le répertoire extrait.
-      -Faites un clic droit sur le fichier run.bat, puis sélectionnez "Exécuter en tant qu'administrateur".
+      - **Téléchargez le dosier .zip d'installation depuis le site officiel de HiveMQ :** https://www.hivemq.com/download/
+      - **Extrayez le dossier téléchargé à l'emplacement de votre choix sur votre système.**
+      - **Accédez au dossier bin dans le répertoire extrait.**
+      - **Faites un clic droit sur le fichier run.bat, puis sélectionnez "Exécuter en tant qu'administrateur".**
