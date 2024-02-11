@@ -25,3 +25,11 @@ Nous nous concentrons sur la traçabilité, de la ruche au consommateur, pour as
       - **Extrayez le dossier téléchargé à l'emplacement de votre choix sur votre système.**
       - **Accédez au dossier bin dans le répertoire extrait.**
       - **Faites un clic droit sur le fichier run.bat, puis sélectionnez "Exécuter en tant qu'administrateur".**
+
+2. **Executer le fichier publisher.py :**
+      - Installer les bibliotheques necessaires avec : **pip install**
+      - Ouvrir le terminal et executer let fichier : **python3 publisher.py**
+        
+3. **Executer le fichier iot_gateway.py :**
+      - Installer les bibliotheques necessaires avec : **pip install**
+      - Ouvrir le terminal et executer let fichier : **python3 iot_gateway.py**
