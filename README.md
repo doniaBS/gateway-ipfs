@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# gateway-ipfs
-in this repo we have created a gaeway that gets temperature data from hivemq broker , send it to infura ipfs , then our api infura gives hash the hash if every data
-=======
 # Techoney - Solution de Traçabilité pour la Chaîne d'Approvisionnement du Miel
 <br>
 ** Partie 1 : Iot devices ( broker ) , et gateway **
@@ -40,4 +36,3 @@ Nous nous concentrons sur la traçabilité, de la ruche au consommateur, pour as
         
 ** LE RESULTAT: **
 ![2024-02-11T11_54_11](https://github.com/doniaBS/gateway-ipfs/assets/53380418/a9554b40-c8d8-4e61-ae6d-69aadaea9130)
->>>>>>> master
