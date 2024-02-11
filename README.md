@@ -34,5 +34,5 @@ Nous nous concentrons sur la traçabilité, de la ruche au consommateur, pour as
       - Installer les bibliotheques necessaires avec : **pip install**
       - Ouvrir le terminal et executer let fichier : **python3 iot_gateway.py**
         
-**LE RESULTAT: **
-![Alt text](C:/Users/asmab/Desktop/2024-02-11T11_54_11.PNG?raw=true "Title")
+** LE RESULTAT: **
+![alt text](C:/Users/asmab/Desktop/2024-02-11T11_54_11.png)
