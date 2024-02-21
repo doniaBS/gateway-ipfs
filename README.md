@@ -35,4 +35,4 @@ Nous nous concentrons sur la traçabilité, de la ruche au consommateur, pour as
       - Ouvrir le terminal et executer let fichier : **python3 iot_gateway.py**
         
 ** LE RESULTAT: **
-![2024-02-11T11_54_11](https://github.com/doniaBS/gateway-ipfs/assets/53380418/a9554b40-c8d8-4e61-ae6d-69aadaea9130)
+![image](https://github.com/doniaBS/gateway-ipfs/assets/53380418/2451b275-63ae-4938-be39-640c6181cfe6)
