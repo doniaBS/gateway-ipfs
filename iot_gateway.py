@@ -60,16 +60,17 @@ if __name__ == "__main__":
 
                 # Send the data to IPFS and get the CID hash
                 api_key = "683524b9a0da412bb1fa3a08433cfe6e"
-                url = f"https://starknet-mainnet.infura.io/v3/{api_key}"
-                headers = {"Content-Type": "application/json"}
-                data = {
+                url = f'https://starknet-mainnet.infura.io/v3/{api_key}'
+                payload = {
                     "jsonrpc": "2.0",
                     "method": "starknet_blockHashAndNumber",
                     "params": [],
                     "id": 1
                 }
-                response = requests.post(url, headers=headers, json=data)
-                cid_hash = response.json()["result"]
+                headers = {'content-type': 'application/json'}
+                response = requests.post(url, data=json.dumps(payload), headers=headers).json()
+                print(response)
+                cid_hash = response["result"]
 
                 # Store the data point and hash in a dictionary
                 data_point_with_hash = {'data': entry, 'hash': cid_hash}
@@ -84,8 +85,8 @@ if __name__ == "__main__":
                 # Send IPFS hash to the blockchain
                 ipfs_hash = entry['hash']  # Access the IPFS hash from the prepared data
                 block_hash = ipfs_hash['block_hash']  # Extract the block_hash (bytes32)
-                block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
-                block_hash_bytes32 = web3.to_bytes(hexstr=block_hash_padded)
+                #block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
+                block_hash_bytes32 = web3.to_bytes(hexstr=block_hash)
 
                 # Specify the sender account
                 transaction = contract.functions.storeIPFSHash(block_hash_bytes32)
