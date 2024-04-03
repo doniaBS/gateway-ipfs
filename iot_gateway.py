@@ -98,6 +98,15 @@ if __name__ == "__main__":
                 transaction_hash = web3.eth.send_transaction(transaction)
                 print(f"Transaction hash: {transaction_hash.hex()}")
 
+            # Clear the prepared data list after sending to IPFS
+            del prepared_data
+
+            # Check if 'prepared_data' still exists
+            try:
+                print(prepared_data)  # This will raise a NameError if 'prepared_data' is deleted
+            except NameError as e:
+                print(f"prepared_data has been deleted from memory: {e}")
+
             # Reset received_temperature_data for the next iteration
             received_temperature_data = None
 
