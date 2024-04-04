@@ -35,13 +35,19 @@ if __name__ == "__main__":
     else:
         print("Connection failed. Check the endpoint URL.")
 
-    # get contract ABI and address of the deployed smart contract
+    # get contract ABI and address of the deployed smart contract: storeHash contract
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
     contract_address = "0xFCf83964198D6d267054200cB7B6D6381052bce5"  # deployed contract address
-
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+    # get contract ABI and address of the deployed smart contract: beekeeper contract
+    with open("BeekeeperContract.abi", "r") as f:
+        beekeeperContract_abi = f.read()
+    beekeeperContract_address = "0x31Ce0cA3c88a9008c63283713588118D32df7177"  # deployed contract address
+    # Create contract instance
+    beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 
     try:
         while True:
@@ -88,10 +94,13 @@ if __name__ == "__main__":
                 #block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
                 block_hash_bytes32 = web3.to_bytes(hexstr=block_hash)
 
+                # Specify the sender account dynamically based on the beekeeper ID
+                sender_account = web3.eth.contract.functions.getBeekeeperAddress(beekeeper_id).call()
+
                 # Specify the sender account
                 transaction = contract.functions.storeIPFSHash(block_hash_bytes32)
                 transaction = transaction.build_transaction({
-                'from': '0xE74f06153499317081E66F73d10ac841819f6f31'  # ganache account address
+                'from': 'sender_account'  # ganache account address
                 })
 
                 # Send the transaction

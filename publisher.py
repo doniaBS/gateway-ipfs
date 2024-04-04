@@ -3,6 +3,7 @@ import json
 import random
 import time
 from datetime import datetime
+from web3 import Web3
 
 # Generate initial data for 4 beekeepers
 beekeepers_data = {}
@@ -34,6 +35,9 @@ while True:
     # Select a beekeeper randomly
     beekeeper_id = random.randint(1, 4)
     data = beekeepers_data[beekeeper_id]
+
+    # Retrieve Ethereum address for the beekeeper ID from the smart contract
+    beekeeper_address = Web3.eth.contract.functions.getBeekeeperAddress(beekeeper_id).call()
 
     # Update beekeeper's values
     data["hive_id"] = i

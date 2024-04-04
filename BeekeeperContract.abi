@@ -1,0 +1,157 @@
+[
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "beekeeperId",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerBeekeeper",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x59f606c3"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "beekeeperId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getBeekeeperAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb137ca64"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkBeesState",
+      "outputs": [
+        {
+          "name": "isOrganicHoney",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xf488292e"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkTemperatureSensorsValues",
+      "outputs": [
+        {
+          "name": "isTemperatureOkay",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xdff98fc0"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkHumiditySensorsValues",
+      "outputs": [
+        {
+          "name": "isHumidityOkay",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x809e925d"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkCo2SensorsValues",
+      "outputs": [
+        {
+          "name": "isCo2Okay",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xaaf463c8"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkWeightSensorsValues",
+      "outputs": [
+        {
+          "name": "isWeightOkay",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x92887113"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hiveId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkHoneyQuality",
+      "outputs": [
+        {
+          "name": "isBeesStateOkay",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xcdc7d6f2"
+    }
+  ]
