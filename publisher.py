@@ -10,6 +10,16 @@ from web3 import Web3
 username = 'utilisateur1'
 password = 'User1pwd'
 
+# Connect to Ganache blockchain
+provider = Web3.HTTPProvider("http://127.0.0.1:7545")  # Ganache endpoint
+web3 = Web3(provider)
+
+if web3.is_connected():
+    print("Connected to Ganache blockchain!")
+else:
+    print("Connection failed. Check the endpoint URL.")
+
+
 # Generate initial data for 4 beekeepers
 beekeepers_data = {}
 for i in range(1, 5):
@@ -41,8 +51,15 @@ while True:
     beekeeper_id = random.randint(1, 4)
     data = beekeepers_data[beekeeper_id]
 
+    # get contract ABI and address of the deployed smart contract: beekeeper contract
+    with open("BeekeeperContract.abi", "r") as f:
+        beekeeperContract_abi = f.read()
+    beekeeperContract_address = "0x31Ce0cA3c88a9008c63283713588118D32df7177"  # deployed contract address
+    # Create contract instance
+    beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
+
     # send the beekeeper id as an input to the beekeeeper address function in the smart contract
-    beekeeper_address = Web3.eth.contract.functions.getBeekeeperAddress(beekeeper_id).call()
+    beekeeper_address = beekeeperContract.functions.getBeekeeperAddress(beekeeper_id).call()
 
     # Update beekeeper's values includin beekeeper_id and sender_address in the metadata
     data["beekeeper_id"] = beekeeper_id
