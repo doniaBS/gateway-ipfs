@@ -8,12 +8,12 @@ received_temperature_data = None
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
-    client.subscribe("temperature")
+    client.subscribe("metadata")
 
 def on_message(client, userdata, msg):
-    global received_temperature_data
-    received_temperature_data = json.loads(msg.payload.decode())
-    print(f"Received temperature data: {received_temperature_data}")
+    global received_beekeeper_metadata
+    received_beekeeper_metadata = json.loads(msg.payload.decode())
+    print(f"received the metadata of the beekeeper: {received_beekeeper_metadata}")
 
 # MQTT setup
 mqtt_client = mqtt.Client()
@@ -94,8 +94,13 @@ if __name__ == "__main__":
                 #block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
                 block_hash_bytes32 = web3.to_bytes(hexstr=block_hash)
 
+
+                # Retrieve beekeeper_id and sender_address from received data
+                beekeeper_id = entry["data"]["beekeeper_id"]
+                sender_address = entry["data"]["sender_address"]
+
                 # Specify the sender account dynamically based on the beekeeper ID
-                sender_account = web3.eth.contract.functions.getBeekeeperAddress(beekeeper_id).call()
+                sender_account = sender_address
 
                 # Specify the sender account
                 transaction = contract.functions.storeIPFSHash(block_hash_bytes32)
