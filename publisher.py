@@ -5,7 +5,6 @@ import time
 from datetime import datetime
 from web3 import Web3
 
-
 # Set username and password
 username = 'utilisateur1'
 password = 'User1pwd'
@@ -20,10 +19,23 @@ else:
     print("Connection failed. Check the endpoint URL.")
 
 
-# Generate initial data for 4 beekeepers
-beekeepers_data = {}
-for i in range(1, 5):
-    hive_id = i
+# get contract ABI and address of the deployed smart contract: beekeeper contract
+with open("BeekeeperContract.abi", "r") as f:
+    beekeeperContract_abi = f.read()
+beekeeperContract_address = "0x3e100f6CF65df0ba40260584E81E986D9d6Ee484"  # deployed contract address
+# Create contract instance
+beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
+
+
+while True:
+    # Generate random beekeeper_id
+    beekeeper_id = random.randint(1, 4)
+
+    # Retrieve the beekeeper's Ethereum address from the smart contract
+    beekeeper_address = beekeeperContract.functions.getBeekeeperAddress(beekeeper_id).call()
+
+    # Generate initial data for the beekeeper
+    hive_id = beekeeper_id
     temperature = round(random.uniform(20.0, 30.0), 2)
     humidity = round(random.uniform(40.0, 50.0), 2)
     co2 = round(random.uniform(60.0, 70.0), 2)
@@ -34,7 +46,11 @@ for i in range(1, 5):
     has_pests = random.choice([True, False]) # Generate random boolean values for hasPests
     has_diseases = random.choice([True, False]) # Generate random boolean values for hasDiseases
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    beekeepers_data[i] = {
+
+    # Construct the data payload
+    data = {
+        "beekeeper_id": beekeeper_id,
+        "beekeeper_address": beekeeper_address,
         "hive_id": hive_id,
         "temperature": temperature, 
         "humidity": humidity,
@@ -42,44 +58,17 @@ for i in range(1, 5):
         "weight": weight,
         "gps_location": gps_location,
         "hasPests": has_pests,
-        "hasDiseases": has_diseases,  
+        "hasDiseases": has_diseases,
+        "latitude": latitude,
+        "longitude": longitude,
+        "has_pests": has_pests,
+        "has_diseases": has_diseases,
         "timestamp": timestamp
     }
 
-while True:
-    # Select a beekeeper randomly
-    beekeeper_id = random.randint(1, 4)
-    data = beekeepers_data[beekeeper_id]
-
-    # get contract ABI and address of the deployed smart contract: beekeeper contract
-    with open("BeekeeperContract.abi", "r") as f:
-        beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0x31Ce0cA3c88a9008c63283713588118D32df7177"  # deployed contract address
-    # Create contract instance
-    beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
-
-    # send the beekeeper id as an input to the beekeeeper address function in the smart contract
-    beekeeper_address = beekeeperContract.functions.getBeekeeperAddress(beekeeper_id).call()
-
-    # Update beekeeper's values includin beekeeper_id and sender_address in the metadata
-    data["beekeeper_id"] = beekeeper_id
-    data["sender_address"] = beekeeper_address
-    data["hive_id"] = i
-    data["temperature"] = round(random.uniform(20.0, 30.0), 2)
-    data["humidity"] = round(random.uniform(40.0, 50.0), 2)
-    data["co2"] = round(random.uniform(60.0, 70.0), 2)
-    data["weight"] = round(random.uniform(80.0, 90.0), 2)
-    data["latitude"] = round(random.uniform(10.0, 50.0), 6) 
-    data["longitude"] = round(random.uniform(10.0, 50.0), 6)
-    data["gps_location"] = f"{latitude},{longitude}"
-    data["has_pests"] = random.choice([True, False])
-    data["has_diseases"] = random.choice([True, False])
-    data["timestamp"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-
-
-    #publish.single("metadata", payload=json.dumps(data), hostname="tcp://5.tcp.eu.ngrok.io", port=18698, auth={'username': username, 'password': password})
+    # Publish the data
     publish.single("metadata", payload=json.dumps(data), hostname= '4.tcp.eu.ngrok.io', port=13228)
     print(f"Published message: {json.dumps(data)} to topic metadata")
 
+    # Wait for the next iteration
     time.sleep(5)

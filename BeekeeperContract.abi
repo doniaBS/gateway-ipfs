@@ -1,5 +1,17 @@
 [
     {
+      "inputs": [
+        {
+          "name": "_ganacheAddresses",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "signature": "constructor"
+    },
+    {
       "constant": false,
       "inputs": [
         {
