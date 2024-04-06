@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 from web3 import Web3
 
 # Global variable to store received temperature data
-received_temperature_data = None
+received_beekeeper_metadata = None
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
