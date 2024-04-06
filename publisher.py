@@ -67,7 +67,7 @@ while True:
     }
 
     # Publish the data
-    publish.single("metadata", payload=json.dumps(data), hostname= '4.tcp.eu.ngrok.io', port=13228)
+    publish.single("metadata", payload=json.dumps(data), hostname= '6.tcp.eu.ngrok.io', port=10180)
     print(f"Published message: {json.dumps(data)} to topic metadata")
 
     # Wait for the next iteration
