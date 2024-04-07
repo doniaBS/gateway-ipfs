@@ -20,7 +20,7 @@ mqtt_client = mqtt.Client()
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 
-mqtt_client.connect("6.tcp.eu.ngrok.io", 10180, 60)
+mqtt_client.connect("7.tcp.eu.ngrok.io", 16666, 60)
 
 if __name__ == "__main__":
     # Subscribe to MQTT topic
@@ -38,14 +38,14 @@ if __name__ == "__main__":
     # get contract ABI and address of the deployed smart contract: storeHash contract
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
-    contract_address = "0xFCf83964198D6d267054200cB7B6D6381052bce5"  # deployed contract address
+    contract_address = "0x357CbccF44B966007bd482fF08f7Df82b7F5f2eD"  # deployed contract address
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
     # get contract ABI and address of the deployed smart contract: beekeeper contract
     with open("BeekeeperContract.abi", "r") as f:
         beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0x3e100f6CF65df0ba40260584E81E986D9d6Ee484"  # deployed contract address
+    beekeeperContract_address = "0xD5E8B3078A5609ff63eDfB5A360cCE169f2b27c3"  # deployed contract address
     # Create contract instance
     beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 
@@ -75,7 +75,6 @@ if __name__ == "__main__":
                 }
                 headers = {'content-type': 'application/json'}
                 response = requests.post(url, data=json.dumps(payload), headers=headers).json()
-                print(response)
                 cid_hash = response["result"]
 
                 # Store the data point and hash in a dictionary
@@ -105,12 +104,16 @@ if __name__ == "__main__":
                 # Specify the sender account
                 transaction = contract.functions.storeIPFSHash(block_hash_bytes32)
                 transaction = transaction.build_transaction({
-                'from': 'sender_account'  # ganache account address
+                'from': sender_account,  # ganache account address
+                'gas': 200000
                 })
 
                 # Send the transaction
                 transaction_hash = web3.eth.send_transaction(transaction)
                 print(f"Transaction hash: {transaction_hash.hex()}")
+
+                # Call the function from the second smart contract
+                beekeeperContract.functions.getBeekeeperAddress(beekeeper_id).transact({'from': sender_account})
 
             # Clear the prepared data list after sending to IPFS
             del prepared_data

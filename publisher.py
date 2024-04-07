@@ -22,7 +22,7 @@ else:
 # get contract ABI and address of the deployed smart contract: beekeeper contract
 with open("BeekeeperContract.abi", "r") as f:
     beekeeperContract_abi = f.read()
-beekeeperContract_address = "0x3e100f6CF65df0ba40260584E81E986D9d6Ee484"  # deployed contract address
+beekeeperContract_address = "0xD5E8B3078A5609ff63eDfB5A360cCE169f2b27c3"  # deployed contract address
 # Create contract instance
 beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 
@@ -67,7 +67,7 @@ while True:
     }
 
     # Publish the data
-    publish.single("metadata", payload=json.dumps(data), hostname= '6.tcp.eu.ngrok.io', port=10180)
+    publish.single("metadata", payload=json.dumps(data), hostname= '7.tcp.eu.ngrok.io', port=16666)
     print(f"Published message: {json.dumps(data)} to topic metadata")
 
     # Wait for the next iteration
