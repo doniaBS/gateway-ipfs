@@ -2,6 +2,7 @@ import json
 import requests
 import paho.mqtt.client as mqtt
 from web3 import Web3
+import base58
 
 # Global variable to store received temperature data
 received_beekeeper_metadata = None
@@ -20,7 +21,7 @@ mqtt_client = mqtt.Client()
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 
-mqtt_client.connect("7.tcp.eu.ngrok.io", 16666, 60)
+mqtt_client.connect("127.0.0.1", 1883, 60)
 
 if __name__ == "__main__":
     # Subscribe to MQTT topic
@@ -64,24 +65,32 @@ if __name__ == "__main__":
                 # Convert each data point to JSON format
                 entry_json = json.dumps(entry)
 
-                # Send the data to IPFS and get the CID hash
-                api_key = "683524b9a0da412bb1fa3a08433cfe6e"
-                url = f'https://starknet-mainnet.infura.io/v3/{api_key}'
-                payload = {
-                    "jsonrpc": "2.0",
-                    "method": "starknet_blockHashAndNumber",
-                    "params": [],
-                    "id": 1
+                # Send the data to Pinata
+                url = "https://api.pinata.cloud/pinning/pinJSONToIPFS"
+                headers = {
+                    "Content-Type": "application/json",
+                    "pinata_api_key": "d4ff07b0e166ec5b7db8",
+                    "pinata_secret_api_key": "1da36dca5acaa1640cf937790bf16129e9dc9d97c6c1d32df5c16d402b0ed0da"
                 }
-                headers = {'content-type': 'application/json'}
-                response = requests.post(url, data=json.dumps(payload), headers=headers).json()
-                cid_hash = response["result"]
+                response = requests.post(url, json={"pinataMetadata": {"name": "Metadata"}, "pinataContent": entry_json}, headers=headers)
+                
+                if response.status_code == 200:
+                    # Retrieved CID hash from Pinata's response
+                    try:
+                        cid_hash = response.json()["IpfsHash"]
+                        print(cid_hash)
+                        print(f"Received CID hash from Pinata: {cid_hash}")
 
-                # Store the data point and hash in a dictionary
-                data_point_with_hash = {'data': entry, 'hash': cid_hash}
+                        # Store the data point and hash in a dictionary
+                        data_point_with_hash = {'data': entry, 'hash': cid_hash}
 
-                # Append the data point with hash to a list of prepared data
-                prepared_data.append(data_point_with_hash)
+                        # Append the data point with hash to a list of prepared data
+                        prepared_data.append(data_point_with_hash)
+                    except KeyError:
+                        print("Failed to retrieve CID hash from Pinata response. Response format may be unexpected.")
+                else:
+                    print(f"Failed to pin data to Pinata. Status code: {response.status_code}")
+                    continue  # Skip to the next iteration of the loop
 
             # Send prepared data to ganache blockchain
             for entry in prepared_data:
@@ -89,10 +98,8 @@ if __name__ == "__main__":
                 print(f"- IPFS Hash: {entry['hash']}")
                 # Send IPFS hash to the blockchain
                 ipfs_hash = entry['hash']  # Access the IPFS hash from the prepared data
-                block_hash = ipfs_hash['block_hash']  # Extract the block_hash (bytes32)
-                #block_hash_padded = block_hash.rjust(64, '0')  # Padding with zeros to ensure 32 bytes
-                block_hash_bytes32 = web3.to_bytes(hexstr=block_hash)
-
+                ipfs_bytes = base58.b58decode(ipfs_hash)# Decode the IPFS hash from Base58
+                block_hash_bytes32 = ipfs_bytes[-32:]# Extract the last 32 bytes to get the bytes32 representation
 
                 # Retrieve beekeeper_id and sender_address from received data
                 beekeeper_id = entry["data"]["beekeeper_id"]
