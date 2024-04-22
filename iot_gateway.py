@@ -39,14 +39,14 @@ if __name__ == "__main__":
     # get contract ABI and address of the deployed smart contract: storeHash contract
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
-    contract_address = "0x357CbccF44B966007bd482fF08f7Df82b7F5f2eD"  # deployed contract address
+    contract_address = "0xe04E1f146E2F193De06831b8557349Dd4B0bf233"  # deployed contract address
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
     # get contract ABI and address of the deployed smart contract: beekeeper contract
     with open("BeekeeperContract.abi", "r") as f:
         beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0xD5E8B3078A5609ff63eDfB5A360cCE169f2b27c3"  # deployed contract address
+    beekeeperContract_address = "0xA0528598E8be1E7fC22A9A466478292EadcB9f5b"  # deployed contract address
     # Create contract instance
     beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
             data = [received_beekeeper_metadata]
 
             # Prepare data for IPFS
-            prepared_data = []
+            prepared_data = [] 
             for entry in data:
                 # Convert each data point to JSON format
                 entry_json = json.dumps(entry)

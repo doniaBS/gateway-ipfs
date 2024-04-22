@@ -2,6 +2,45 @@
     {
       "constant": true,
       "inputs": [],
+      "name": "numHashes",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x348a71cb"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "hashes",
+      "outputs": [
+        {
+          "name": "ipfsHash",
+          "type": "bytes32"
+        },
+        {
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x501895ae"
+    },
+    {
+      "constant": true,
+      "inputs": [],
       "name": "owner",
       "outputs": [
         {
@@ -22,6 +61,75 @@
       "signature": "constructor"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "identifier",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "ipfsHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "name": "IPFSHashStored",
+      "type": "event",
+      "signature": "0xeddf90fb4d429d6e11c3f8d4bc25d13f9c5c5ddeba83d8424855e26b63efc07d"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "name": "BeekeeperAddressReceived",
+      "type": "event",
+      "signature": "0x0b821827c274bc9b7c169ce860a6722284123484ae37a87bb74de4abb67cb840"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "beekeeperAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "ipfsHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "IPFSHashRetrieved",
+      "type": "event",
+      "signature": "0x563ae633124fcca5751b2baf6d55ce4cf2f88c8814819ac3b20d99a6111c5bad"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "name": "storeBeekeeperAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x8626c9b1"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -35,5 +143,25 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xcd6f27a5"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getIPFSHashByBeekeeperAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x6890f368"
     }
   ]
