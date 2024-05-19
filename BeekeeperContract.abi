@@ -25,6 +25,24 @@
       "signature": "0xa12dcee613e9d381f07f5577b68841926886f2ffed66147c2af064de15297123"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "beekeeperId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "beekeeperAddress",
+          "type": "address"
+        }
+      ],
+      "name": "beekeeperIdBeekeeperAddress",
+      "type": "event",
+      "signature": "0x82fc758beb45430ad6779b890bace00d6cc0f9f5027be9f7b097331c465b1863"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -55,7 +73,7 @@
       "signature": "0x59f606c3"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "beekeeperId",
@@ -70,7 +88,7 @@
         }
       ],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xb137ca64"
     },

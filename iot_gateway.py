@@ -39,14 +39,14 @@ if __name__ == "__main__":
     # get contract ABI and address of the deployed smart contract: storeHash contract
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
-    contract_address = "0xe04E1f146E2F193De06831b8557349Dd4B0bf233"  # deployed contract address
+    contract_address = "0x87A29eD0569dbffe557F64c784606db4d3796693"  # deployed contract address
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
     # get contract ABI and address of the deployed smart contract: beekeeper contract
     with open("BeekeeperContract.abi", "r") as f:
         beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0xA0528598E8be1E7fC22A9A466478292EadcB9f5b"  # deployed contract address
+    beekeeperContract_address = "0x7d794E312f30BE116222C8d68510A387D8aa347C"  # deployed contract address
     # Create contract instance
     beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 

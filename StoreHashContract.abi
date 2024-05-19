@@ -106,7 +106,7 @@
         },
         {
           "indexed": false,
-          "name": "ipfsHash",
+          "name": "retrievedHash",
           "type": "bytes32"
         }
       ],
@@ -153,12 +153,7 @@
         }
       ],
       "name": "getIPFSHashByBeekeeperAddress",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
