@@ -22,7 +22,7 @@ else:
 # get contract ABI and address of the deployed smart contract: beekeeper contract
 with open("BeekeeperContract.abi", "r") as f:
     beekeeperContract_abi = f.read()
-beekeeperContract_address = "0x7d794E312f30BE116222C8d68510A387D8aa347C"  # deployed contract address
+beekeeperContract_address = "0x56F384eD5aD186fbD2ac07d9554C002eb1519749"  # deployed contract address
 # Create contract instance
 beekeeperContract = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
 

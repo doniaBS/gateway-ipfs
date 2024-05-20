@@ -1,6 +1,26 @@
 [
     {
       "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "identifiers",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x28f2d4da"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "numHashes",
       "outputs": [
@@ -90,19 +110,6 @@
           "indexed": false,
           "name": "beekeeperAddress",
           "type": "address"
-        }
-      ],
-      "name": "BeekeeperAddressReceived",
-      "type": "event",
-      "signature": "0x0b821827c274bc9b7c169ce860a6722284123484ae37a87bb74de4abb67cb840"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "beekeeperAddress",
-          "type": "address"
         },
         {
           "indexed": false,
@@ -113,21 +120,6 @@
       "name": "IPFSHashRetrieved",
       "type": "event",
       "signature": "0x563ae633124fcca5751b2baf6d55ce4cf2f88c8814819ac3b20d99a6111c5bad"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "beekeeperAddress",
-          "type": "address"
-        }
-      ],
-      "name": "storeBeekeeperAddress",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x8626c9b1"
     },
     {
       "constant": false,
