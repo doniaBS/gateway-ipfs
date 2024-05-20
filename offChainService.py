@@ -26,6 +26,8 @@ def handle_event(event):
     if response.status_code == 200:
         metadata = response.json()
         print(f"Retrieved metadata: {metadata}")
+        # Send metadata to webpage
+        send_to_web_page(metadata)  
         # Send the metadata to the BeekeeperContract
         return False
     else:
@@ -33,6 +35,17 @@ def handle_event(event):
         print(error_message)
         # Send the error message to the web page
         send_to_web_page({"error": error_message})
+
+def send_to_web_page(metadata):
+    # the URL for your metadata page (including port)
+    url = "http://localhost:3000/metadata.html"  # port 3000 for Lite server
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, headers=headers, data=json.dumps(metadata))
+    if response.status_code == 200:
+      print(f"Successfully sent metadata to webpage.")
+    else:
+      print(f"Failed to send metadata to webpage. Status code: {response.status_code}")
+
 
 def main():
     # Connect to Ganache blockchain

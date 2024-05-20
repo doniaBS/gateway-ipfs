@@ -61,8 +61,6 @@ while True:
         "hasDiseases": has_diseases,
         "latitude": latitude,
         "longitude": longitude,
-        "has_pests": has_pests,
-        "has_diseases": has_diseases,
         "timestamp": timestamp
     }
 
