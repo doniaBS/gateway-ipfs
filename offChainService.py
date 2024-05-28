@@ -2,6 +2,11 @@ import json
 import requests
 from web3 import Web3
 import base58
+from websocket_server import WebsocketServer
+import threading
+
+# Global variable for the WebSocket server
+ws_server = None
 
 def handle_event(event):
     beekeeper_address = event['args']['beekeeperAddress']
@@ -37,17 +42,19 @@ def handle_event(event):
         send_to_web_page({"error": error_message})
 
 def send_to_web_page(metadata):
-    # the URL for your metadata page (including port)
-    url = "http://localhost:3000/metadata.html"  # port 3000 for Lite server
-    headers = {'Content-type': 'application/json'}
-    response = requests.post(url, headers=headers, data=json.dumps(metadata))
-    if response.status_code == 200:
-      print(f"Successfully sent metadata to webpage.")
-    else:
-      print(f"Failed to send metadata to webpage. Status code: {response.status_code}")
+    global ws_server
+    ws_server.send_message_to_all(json.dumps(metadata))
 
+def start_ws_server():
+    global ws_server
+    ws_server = WebsocketServer(host='localhost', port=8765)
+    ws_server.run_forever()
 
 def main():
+     # Start the WebSocket server in a separate thread
+    ws_thread = threading.Thread(target=start_ws_server)
+    ws_thread.start()
+    
     # Connect to Ganache blockchain
     provider = Web3.HTTPProvider("http://127.0.0.1:7545")
     web3 = Web3(provider)
