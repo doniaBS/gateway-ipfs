@@ -43,7 +43,7 @@ def handle_event(event):
 
 def send_to_web_page(metadata):
     global ws_server
-    ws_server.send_message_to_all(json.dumps(metadata))
+    ws_server.send_message_to_all(metadata)
 
 def start_ws_server():
     global ws_server
