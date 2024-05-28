@@ -36,7 +36,7 @@ def handle_event(event):
         # Send the metadata to the BeekeeperContract
         return False
     else:
-        error_message = f"Failed to retrieve metadata from IPFS.Dta has been changed. Status code: {response.status_code}"
+        error_message = f"Failed to retrieve metadata from IPFS.Data has been changed. Status code: {response.status_code}"
         print(error_message)
         # Send the error message to the web page
         send_to_web_page({"error": error_message})
