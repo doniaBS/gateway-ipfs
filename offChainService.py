@@ -37,16 +37,12 @@ def handle_event(event):
         return False
     else:
         error_message = "Failed to retrieve metadata from IPFS. Data has been changed"
-        error_message_json = json.dumps( error_message)
-        print( error_message_json)
-        # Send the error message to the web page
-        send_to_web_page( error_message_json)
-        return False  # Ensure to return False for error case as well
+        print(error_message)
+        return False
 
 def send_to_web_page(message):
     global ws_server
     ws_server.send_message_to_all(message)
-    print(f"Sent to WebSocket: {message}")
 
 def start_ws_server():
     global ws_server
