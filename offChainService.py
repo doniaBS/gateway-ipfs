@@ -36,14 +36,17 @@ def handle_event(event):
         # Send the metadata to the BeekeeperContract
         return False
     else:
-        error_message = f"Failed to retrieve metadata from IPFS.Data has been changed. Status code: {response.status_code}"
-        print(error_message)
+        error_message = "Failed to retrieve metadata from IPFS. Data has been changed"
+        error_message_json = json.dumps( error_message)
+        print( error_message_json)
         # Send the error message to the web page
-        send_to_web_page({"error": error_message})
+        send_to_web_page( error_message_json)
+        return False  # Ensure to return False for error case as well
 
-def send_to_web_page(metadata):
+def send_to_web_page(message):
     global ws_server
-    ws_server.send_message_to_all(metadata)
+    ws_server.send_message_to_all(message)
+    print(f"Sent to WebSocket: {message}")
 
 def start_ws_server():
     global ws_server
@@ -67,12 +70,12 @@ def main():
     # Load contract storeHashContract ABI and address
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
-    contract_address = "0x4a87F442405a4e010A08a0D1e1cB8522Fa7A0FaB"  # Deployed contract address
+    contract_address = "0x68922314EF9a987655164d49Cf6B2952CbA5f5bE"  # Deployed contract address
 
     # Load contract BekeeperContract ABI and address
     with open("BeekeeperContract.abi", "r") as f:
         beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0x56F384eD5aD186fbD2ac07d9554C002eb1519749"  # Deployed contract address
+    beekeeperContract_address = "0xa8C5e5189614ac9Ea601b923F284dB6283C26732"  # Deployed contract address
 
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
