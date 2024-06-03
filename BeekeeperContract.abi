@@ -30,6 +30,67 @@
       "signature": "0x82fc758beb45430ad6779b890bace00d6cc0f9f5027be9f7b097331c465b1863"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "hiveId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "beekeeperId",
+          "type": "uint256"
+        }
+      ],
+      "name": "HiveRegistered",
+      "type": "event",
+      "signature": "0xe458092b1f1c022caae76653a64f268909048339ac295dc5e54b1444eef92555"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "hiveId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "beeOkay",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "honeyOrganic",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "tempOkay",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "humidityOkay",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "co2Okay",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "weightOkay",
+          "type": "bool"
+        }
+      ],
+      "name": "MetadataProcessed",
+      "type": "event",
+      "signature": "0xb686f27b1ce2912a7c4021f13f511e0dd629251c9bd7c8e6c20fb92d6c25497f"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -70,19 +131,18 @@
         {
           "name": "hiveId",
           "type": "uint256"
-        }
-      ],
-      "name": "checkBeesState",
-      "outputs": [
+        },
         {
-          "name": "isOrganicHoney",
-          "type": "bool"
+          "name": "beekeeperId",
+          "type": "uint256"
         }
       ],
+      "name": "registerHive",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0xf488292e"
+      "signature": "0x520e6dee"
     },
     {
       "constant": false,
@@ -90,98 +150,37 @@
         {
           "name": "hiveId",
           "type": "uint256"
-        }
-      ],
-      "name": "checkTemperatureSensorsValues",
-      "outputs": [
+        },
         {
-          "name": "isTemperatureOkay",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xdff98fc0"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "hiveId",
+          "name": "temperature",
           "type": "uint256"
-        }
-      ],
-      "name": "checkHumiditySensorsValues",
-      "outputs": [
+        },
         {
-          "name": "isHumidityOkay",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x809e925d"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "hiveId",
+          "name": "humidity",
           "type": "uint256"
-        }
-      ],
-      "name": "checkCo2SensorsValues",
-      "outputs": [
+        },
         {
-          "name": "isCo2Okay",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xaaf463c8"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "hiveId",
+          "name": "co2",
           "type": "uint256"
-        }
-      ],
-      "name": "checkWeightSensorsValues",
-      "outputs": [
+        },
         {
-          "name": "isWeightOkay",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x92887113"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "hiveId",
+          "name": "weight",
           "type": "uint256"
-        }
-      ],
-      "name": "checkHoneyQuality",
-      "outputs": [
+        },
         {
-          "name": "isBeesStateOkay",
+          "name": "hasPests",
+          "type": "bool"
+        },
+        {
+          "name": "hasDiseases",
           "type": "bool"
         }
       ],
+      "name": "processMetadata",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0xcdc7d6f2"
+      "signature": "0xea68d0e4"
     }
   ]
