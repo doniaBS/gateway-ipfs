@@ -148,8 +148,8 @@ def main():
 
     while True:
         for event in event_filter.get_new_entries():
-         if not handle_event(event):
+         if handle_event(event):
           break  # Exit the loop if handle_event returns False
-
+         
 if __name__ == "__main__":
     main()
