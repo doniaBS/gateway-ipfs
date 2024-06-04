@@ -48,49 +48,6 @@
       "signature": "0xe458092b1f1c022caae76653a64f268909048339ac295dc5e54b1444eef92555"
     },
     {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "hiveId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "beeOkay",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "name": "honeyOrganic",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "name": "tempOkay",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "name": "humidityOkay",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "name": "co2Okay",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "name": "weightOkay",
-          "type": "bool"
-        }
-      ],
-      "name": "MetadataProcessed",
-      "type": "event",
-      "signature": "0xb686f27b1ce2912a7c4021f13f511e0dd629251c9bd7c8e6c20fb92d6c25497f"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -177,7 +134,32 @@
         }
       ],
       "name": "processMetadata",
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "isBeesStateOkay",
+          "type": "bool"
+        },
+        {
+          "name": "isOrganicHoney",
+          "type": "bool"
+        },
+        {
+          "name": "isTemperatureOkay",
+          "type": "bool"
+        },
+        {
+          "name": "isHumidityOkay",
+          "type": "bool"
+        },
+        {
+          "name": "isCo2Okay",
+          "type": "bool"
+        },
+        {
+          "name": "isWeightOkay",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",

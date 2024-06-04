@@ -52,31 +52,25 @@ def send_to_beekeeper_contract(metadata):
     # Load contract BeekeeperContract ABI and address
     with open("BeekeeperContract.abi", "r") as f:
         beekeeperContract_abi = f.read()
-    beekeeperContract_address = "0x63039B71C8E19bE6270370783ee407850409DcC8"  # Deployed contract address
+    beekeeperContract_address = "0x44d6B92EDdab3E9C46B31a28a309b574e44cAdA5"  # Deployed contract address
 
     # Create contract instance
     contractBeekeeper = web3.eth.contract(address=beekeeperContract_address, abi=beekeeperContract_abi)
     # send the metadata to the corresponding data in the smart contract
     metadata_processing = json.loads(metadata) #convert it to pyton dic to access to the metadata attributes
     hive_id = int(metadata_processing["hive_id"])
-    print(hive_id)
     beekeeperId = int(metadata_processing["beekeeper_id"])
     beekeeperAddress = metadata_processing["beekeeper_address"]
     temperature = int(metadata_processing["temperature"])
-    print(temperature)
     humidity = int(metadata_processing["humidity"])
     co2 = int(metadata_processing["co2"])
     weight = int(metadata_processing["weight"])
     hasPests = bool(metadata_processing["hasPests"])
-    print(hasPests)
     hasDiseases = bool(metadata_processing["hasDiseases"])
-
     # register beekeepers
     register_beekeeper(web3, contractBeekeeper, beekeeperId, beekeeperAddress)
-
     #register the hives to the beekeeperId
     register_hive(web3, contractBeekeeper, hive_id, beekeeperId, beekeeperAddress)
-    
     # Process the metadata and update the hive state
     process_metadata(web3, contractBeekeeper, hive_id, beekeeperAddress, temperature, humidity, co2, weight, hasPests, hasDiseases)
 
@@ -111,6 +105,10 @@ def process_metadata(web3, contract, hive_id, beekeeperAddress, temperature, hum
     })
     transaction_hash_metadata = web3.eth.send_transaction(transaction_metadata)
     print(f"transaction_metadata: {transaction_hash_metadata.hex()}")
+    
+    # Call the processMetadata function and get the returned values
+    result = contract.functions.processMetadata(hive_id, temperature, humidity, co2, weight, hasPests, hasDiseases).call({'from': sender_account})
+    print(result)
 
 def send_to_web_page(message):
     global ws_server
@@ -138,7 +136,7 @@ def main():
     # Load contract storeHashContract ABI and address
     with open("StoreHashContract.abi", "r") as f:
         contract_abi = f.read()
-    contract_address = "0x55911d6D2B22add3ff5f3408a2E2B8D826db53fC"  # Deployed contract address
+    contract_address = "0x3075AD7097Df095CB7aF0e5823f62F6b5018Ba7A"  # Deployed contract address
 
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
