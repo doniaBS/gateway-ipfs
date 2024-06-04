@@ -4,6 +4,7 @@ from web3 import Web3
 import base58
 from websocket_server import WebsocketServer
 import threading
+import time
 
 # Global variable for the WebSocket server
 ws_server = None
@@ -141,13 +142,20 @@ def main():
     # Create contract instance
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
-    # Set up event filter
+   # Set up event filter
     event_filter = contract.events.IPFSHashRetrieved.create_filter(fromBlock='latest')
-
     while True:
-        for event in event_filter.get_new_entries():
-         if handle_event(event):
-          break  # Exit the loop if handle_event returns False
+        print("Checking for new events...")
+        event_list = event_filter.get_new_entries()
+        if not event_list:
+            print("No new events found")
+        for event in event_list:
+            print("New event found")
+            if handle_event(event):
+                print("Event handled successfully")
+            else:
+                print("Failed to handle event")
+        time.sleep(2)  # Add a delay to avoid busy-waiting
          
 if __name__ == "__main__":
     main()

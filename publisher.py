@@ -36,10 +36,10 @@ while True:
 
     # Generate initial data for the beekeeper
     hive_id = beekeeper_id
-    temperature = round(random.uniform(20.0, 30.0), 2)
-    humidity = round(random.uniform(40.0, 50.0), 2)
-    co2 = round(random.uniform(60.0, 70.0), 2)
-    weight = round(random.uniform(80.0, 90.0), 2)
+    temperature = round(random.uniform(30.0, 35.0), 2)
+    humidity = round(random.uniform(90.0, 95.0), 2)
+    co2 = round(random.uniform(1000.0, 4000.0), 2)
+    weight = round(random.uniform(30.0, 80.0), 2)
     latitude = round(random.uniform(10.0, 50.0), 6) 
     longitude = round(random.uniform(10.0, 50.0), 6)
     gps_location = f"{latitude},{longitude}"  # Combine latitude and longitude
