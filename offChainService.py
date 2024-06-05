@@ -110,6 +110,19 @@ def process_metadata(web3, contract, hive_id, beekeeperAddress, temperature, hum
     # Call the processMetadata function and get the returned values
     result = contract.functions.processMetadata(hive_id, temperature, humidity, co2, weight, hasPests, hasDiseases).call({'from': sender_account})
     print(result)
+    # result is serializable
+    result_data = {
+        'bee_state': result[0],
+        'honey_quality': result[1],
+        'temp_state': result[2],
+        'hum_state': result[3],
+        'co2_state': result[4],
+        'weight_state': result[5]
+    }
+    
+    # Send the result via WebSocket
+    global ws_server
+    ws_server.send_message_to_all(json.dumps(result_data))
 
 def send_to_web_page(message):
     global ws_server
