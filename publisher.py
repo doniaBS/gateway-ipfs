@@ -5,10 +5,6 @@ import time
 from datetime import datetime
 from web3 import Web3
 
-# Set username and password
-username = 'utilisateur1'
-password = 'User1pwd'
-
 # Connect to Ganache blockchain
 provider = Web3.HTTPProvider("http://127.0.0.1:7545")  # Ganache endpoint
 web3 = Web3(provider)
